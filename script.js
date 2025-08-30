@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const finalPrice = document.getElementById('finalPrice');
 
     // Pricing constants
-    const LABOR_PER_PLATE = 5;
     const MACHINE_COST_PER_HOUR = 2;
     const FILAMENT_COST_PER_GRAM = 0.02;
 
@@ -23,21 +22,21 @@ document.addEventListener('DOMContentLoaded', function() {
         const printTime = parseFloat(printTimeInput.value) || 0;
         const filamentWeight = parseFloat(filamentWeightInput.value) || 0;
         const printPlates = parseInt(printPlatesInput.value) || 1;
-        const complexityMultiplier = parseFloat(complexitySelect.value) || 1;
+        const selectedLaborCostPerPlate = parseFloat(complexitySelect.value) || 5;
 
         // Calculate costs
-        const laborCostValue = printPlates * LABOR_PER_PLATE;
+        const laborCostValue = printPlates * selectedLaborCostPerPlate;
         const machineCostValue = printTime * MACHINE_COST_PER_HOUR;
         const filamentCostValue = filamentWeight * FILAMENT_COST_PER_GRAM;
 
         // Calculate base cost
         const baseCostValue = laborCostValue + machineCostValue + filamentCostValue;
 
-        // Apply complexity multiplier
-        const finalPriceValue = baseCostValue * complexityMultiplier;
+        // Final price is the same as base cost
+        const finalPriceValue = baseCostValue;
 
         // Update display
-        laborCostPerPlate.textContent = `$${LABOR_PER_PLATE.toFixed(2)}`;
+        laborCostPerPlate.textContent = `$${selectedLaborCostPerPlate.toFixed(2)}`;
         totalLaborCost.textContent = `$${laborCostValue.toFixed(2)}`;
         machineCost.textContent = `$${machineCostValue.toFixed(2)}`;
         filamentCost.textContent = `$${filamentCostValue.toFixed(2)}`;
